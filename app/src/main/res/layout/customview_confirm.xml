@@ -17,79 +17,67 @@
 
         <EditText
             android:id="@+id/edit1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/edit_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edit2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/edit_default"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/edit_default"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/edit_default"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/edit_default"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/edit_default"
             android:gravity="center"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
     </LinearLayout>

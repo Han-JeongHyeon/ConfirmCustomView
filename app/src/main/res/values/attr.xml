@@ -3,5 +3,8 @@
     <declare-styleable name="ConfirmCustomView">
         <attr format="reference" name="Cursor"/>
         <attr format="reference" name="Background"/>
+        <attr format="dimension" name="Width"/>
+        <attr format="dimension" name="Height"/>
+        <attr format="dimension" name="FontSize"/>
     </declare-styleable>
 </resources>
