@@ -41,60 +41,68 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
         val cursor = ContextCompat.getDrawable(
             context,
-            typedArray.getResourceId(R.styleable.ConfirmCustomView_Cursor, R.drawable.edit_cursor))
+            typedArray.getResourceId(R.styleable.ConfirmCustomView_Cursor, R.drawable.edit_cursor)
+        )
 
         val background = ContextCompat.getDrawable(
             context,
-            typedArray.getResourceId(R.styleable.ConfirmCustomView_Background, R.drawable.edit_default))
+            typedArray.getResourceId(
+                R.styleable.ConfirmCustomView_Background,
+                R.drawable.edit_default
+            )
+        )
 
-        val width = typedArray.getDimension(R.styleable.ConfirmCustomView_Width,0F)
+        val width = typedArray.getDimension(R.styleable.ConfirmCustomView_Width, 0F)
 
-        val height = typedArray.getDimension(R.styleable.ConfirmCustomView_Height,0F)
+        val height = typedArray.getDimension(R.styleable.ConfirmCustomView_Height, 0F)
 
-        val fontSize = typedArray.getDimension(R.styleable.ConfirmCustomView_FontSize,16F)
+        val fontSize = typedArray.getDimension(R.styleable.ConfirmCustomView_FontSize, 16F)
 
         for (id in 1..6) {
             var editTextId = getIdentifier(id)
 
             editTextId.textCursorDrawable = cursor
             editTextId.background = background
+
             editTextId.setSelectAllOnFocus(true)
+
             editTextId.width = width.toInt()
             editTextId.height = height.toInt()
+
             editTextId.textSize = fontSize
+
+            editTextId.addTextChangedListener { text: Editable? ->
+                if (text?.length == 1) {
+                    number.add(text.toString().toInt())
+
+                    if (id == 6) {
+                        clear()
+                        Log.d("TAG", number.toString())
+                    }
+
+                    try {
+                        editTextId = getIdentifier(id + 1)
+                        editTextId.requestFocus()
+                    } catch (e: Exception) {
+                    }
+
+                }
+            }
 
             editTextId.setOnKeyListener { view, i, keyEvent ->
 
                 if (keyEvent.keyCode == KeyEvent.KEYCODE_DEL &&
-                    keyEvent.action == MotionEvent.ACTION_DOWN )
-                {
+                    keyEvent.action == MotionEvent.ACTION_DOWN
+                ) {
                     try {
-                        number.removeAt(id-1)
-                    } catch (e: Exception) { }
+                        number.removeAt(id - 1)
+                    } catch (e: Exception) {
+                    }
 
                     if (id != 1) {
-                        editTextId = getIdentifier(id-1)
+                        editTextId = getIdentifier(id - 1)
                         editTextId.requestFocus()
                     }
-                }
-                else if (keyEvent.action == MotionEvent.ACTION_DOWN) {
-//                    editTextId.setText("1")
-//                    editTextId.addTextChangedListener { text: Editable? ->
-//                        if (text?.length == 1) {
-//                            number.add(text.toString().toInt())
-//
-//                            if (id == 6) {
-//                                clear()
-//                                Log.d("TAG", number.toString())
-//                            }
-
-                            try {
-                                editTextId = getIdentifier(id + 1)
-                                editTextId.requestFocus()
-                            } catch (e: Exception) { }
-
-//                        }
-//                    }
                 }
 
                 true
@@ -104,15 +112,16 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
     }
 
-    fun clear(){
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow( this.windowToken, 0)
+    fun clear() {
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
         clearFocus()
     }
 
     private fun getIdentifier(id: Int): EditText {
         return findViewById(
-            resources.getIdentifier("edit$id","id",context.packageName)
+            resources.getIdentifier("edit$id", "id", context.packageName)
         )
     }
 
