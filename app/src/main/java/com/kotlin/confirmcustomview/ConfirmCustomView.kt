@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -18,8 +19,8 @@ import androidx.core.widget.addTextChangedListener
 import java.lang.Exception
 
 /*
-* 에딧 배경, 포커스 막대기 커스텀 가능하게
-* 지우기 한번에 가능하게
+* 에딧 배경, 커서 커스텀 가능하게
+* 지우기 한번에
 * 내가 입력한 값 가져오기
 * */
 
