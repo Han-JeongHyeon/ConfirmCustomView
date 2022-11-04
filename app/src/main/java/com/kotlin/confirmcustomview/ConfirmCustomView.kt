@@ -22,13 +22,6 @@ import org.w3c.dom.Text
 import java.lang.Exception
 import kotlin.math.log
 
-/*
-* 에딧 배경, 커서 커스텀 가능하게
-* 지우기 한번에
-* 내가 입력한 값 가져오기
-* 글자 사이즈, 에딧 크기 변경
-* */
-
 @RequiresApi(Build.VERSION_CODES.Q)
 @SuppressLint("ClickableViewAccessibility")
 class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
@@ -69,7 +62,7 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
         var textViewId: TextView
 
-        editText.setOnKeyListener { view, i, keyEvent ->
+        editText.setOnKeyListener { _, _, keyEvent ->
             if (keyEvent.keyCode == KeyEvent.KEYCODE_DEL &&
                 keyEvent.action == MotionEvent.ACTION_DOWN
             ) {
