@@ -2,9 +2,8 @@ package com.kotlin.confirmcustomview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
@@ -17,6 +16,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.widget.addTextChangedListener
 import org.w3c.dom.Text
 import java.lang.Exception
@@ -33,22 +33,29 @@ import kotlin.math.log
 @SuppressLint("ClickableViewAccessibility")
 class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
+    private val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    private var default: Drawable? = null
+    private var custom: Drawable? = null
+
     init {
         View.inflate(context, R.layout.customview_confirm, this)
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ConfirmCustomView)
 
-        val number: ArrayList<Int> = arrayListOf()
-
-        val cursor = ContextCompat.getDrawable(
-            context,
-            typedArray.getResourceId(R.styleable.ConfirmCustomView_Cursor, R.drawable.edit_cursor)
-        )
-
-        val background = ContextCompat.getDrawable(
+        default = ContextCompat.getDrawable(
             context,
             typedArray.getResourceId(
                 R.styleable.ConfirmCustomView_Background,
                 R.drawable.edit_default
+            )
+        )
+
+        custom = ContextCompat.getDrawable(
+            context,
+            typedArray.getResourceId(
+                R.styleable.ConfirmCustomView_Background,
+                R.drawable.edit_custom
             )
         )
 
@@ -58,70 +65,77 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
         val fontSize = typedArray.getDimension(R.styleable.ConfirmCustomView_FontSize, 16F)
 
-        for (id in 1..6) {
-            var editTextId = getIdentifier(id)
+        val editText = findViewById<EditText>(R.id.edit)
 
-            editTextId.textCursorDrawable = cursor
-            editTextId.background = background
+        var textViewId: TextView
 
-            editTextId.setSelectAllOnFocus(true)
+        editText.setOnKeyListener { view, i, keyEvent ->
+            if (keyEvent.keyCode == KeyEvent.KEYCODE_DEL &&
+                keyEvent.action == MotionEvent.ACTION_DOWN
+            ) {
+                try {
+                    textViewId = getIdentifier(editText.length())
+                    textViewId.text = ""
+                    val num = editText.length() - 1
+                    backgroundChange(if (num in 1..6) num else 1)
+                } catch (e:Exception) { }
 
-            editTextId.width = width.toInt()
-            editTextId.height = height.toInt()
+            } else if (keyEvent.keyCode - 7 in 0..9 &&
+                keyEvent.action == MotionEvent.ACTION_UP)
+            {
+                if (editText.length() == 6) Log.d("TAG", "${editText.text}")
 
-            editTextId.textSize = fontSize
-
-            editTextId.addTextChangedListener { text: Editable? ->
-                if (text?.length == 1) {
-                    number.add(text.toString().toInt())
-
-                    if (id == 6) {
-                        clear()
-                        Log.d("TAG", number.toString())
-                    }
-
-                    try {
-                        editTextId = getIdentifier(id + 1)
-                        editTextId.requestFocus()
-                    } catch (e: Exception) {
-                    }
-
-                }
+                textViewId = getIdentifier(editText.length())
+                textViewId.text = editText.text.substring(editText.length() - 1, editText.length())
+                backgroundChange(editText.length() + 1)
             }
 
-            editTextId.setOnKeyListener { view, i, keyEvent ->
-
-                if (keyEvent.keyCode == KeyEvent.KEYCODE_DEL &&
-                    keyEvent.action == MotionEvent.ACTION_DOWN
-                ) {
-                    try {
-                        number.removeAt(id - 1)
-                    } catch (e: Exception) {
-                    }
-
-                    if (id != 1) {
-                        editTextId = getIdentifier(id - 1)
-                        editTextId.requestFocus()
-                    }
-                }
-
-                true
-            }
-
+            false
         }
 
+        for (id in 1..6) {
+            textViewId = getIdentifier(id)
+
+            textViewId.background = default
+
+            textViewId.width = width.toInt()
+            textViewId.height = height.toInt()
+
+            textViewId.textSize = fontSize
+
+            textViewId.setOnClickListener {
+                editText.requestFocus()
+                inputMethodManager.showSoftInput(editText, 0)
+
+                val num = editText.length() + 1
+
+                backgroundChange( if (num in 1..6) num else 6)
+            }
+        }
     }
 
     fun clear() {
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        backgroundChange(0)
         inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
         clearFocus()
     }
 
-    private fun getIdentifier(id: Int): EditText {
+    private fun backgroundChange(id: Int) {
+        for (i in 1..6) {
+            val textViewId = getIdentifier(i)
+
+            if (i == id) {
+                textViewId.background = custom
+            } else {
+                textViewId.background = default
+            }
+        }
+
+    }
+
+    private fun getIdentifier(id: Int): TextView {
         return findViewById(
-            resources.getIdentifier("edit$id", "id", context.packageName)
+            resources.getIdentifier("text$id", "id", context.packageName)
         )
     }
 

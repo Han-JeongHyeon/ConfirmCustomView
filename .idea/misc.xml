@@ -9,9 +9,10 @@
         <entry key="..\:/ConfirmCustomView/app/src/main/res/layout/editbackground.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/drawable/edit.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/edit_cursor.xml" value="0.175" />
+        <entry key="app/src/main/res/drawable/edit_default.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/edit_default1.xml" value="0.175" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/customview_confirm.xml" value="0.33152173913043476" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/customview_confirm.xml" value="0.25" />
       </map>
     </option>
   </component>
