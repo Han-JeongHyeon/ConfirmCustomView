@@ -83,7 +83,10 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
             } else if (keyEvent.keyCode - 7 in 0..9 &&
                 keyEvent.action == MotionEvent.ACTION_UP)
             {
-                if (editText.length() == 6) Log.d("TAG", "${editText.text}")
+                if (editText.length() == 6) {
+                    Log.d("TAG", "${editText.text}")
+                    clear()
+                }
 
                 textViewId = getIdentifier(editText.length())
                 textViewId.text = editText.text.substring(editText.length() - 1, editText.length())

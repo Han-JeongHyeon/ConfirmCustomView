@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.43020833333333336" />
         <entry key="..\:/ConfirmCustomView/app/src/main/res/drawable/edit.xml" value="0.194" />
         <entry key="..\:/ConfirmCustomView/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/ConfirmCustomView/app/src/main/res/layout/customview_confirm.xml" value="0.3645833333333333" />
