@@ -54,7 +54,7 @@ class ConfirmCustomView(context: Context, attrs: AttributeSet) : ConstraintLayou
         custom = ContextCompat.getDrawable(
             context,
             typedArray.getResourceId(
-                R.styleable.ConfirmCustomView_Background,
+                R.styleable.ConfirmCustomView_CheckBackground,
                 R.drawable.edit_custom
             )
         )
